@@ -1,0 +1,21 @@
+doctype html
+html
+	head
+		title #{title}
+		link(rel='stylesheet', href='/css/style.css')
+		meta(name="viewport" content="width=device-width, initial-scale=1")
+	body
+		main
+			block header
+				header.header
+					h1 #{title}
+			block nav
+				a(href=`/`)
+					| Home
+			block content
+				form(action='/login/m', method='POST')
+					| Enter your email
+					input(name='email', value='', type='email')
+					| Enter your password
+					input(name='password', value='', type='password')
+					input(value='Submit', type='submit')
