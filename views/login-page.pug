@@ -1,0 +1,26 @@
+doctype html
+html
+	head
+		title #{title}
+		link(rel='stylesheet', href='/css/style.css')
+		meta(name="viewport" content="width=device-width, initial-scale=1")
+	body
+		main
+			block header
+				header.header
+					img(src='images/logoResize.png' alt="Game Logo" class="center")
+					h1 #{title}
+			block nav
+				nav.nav
+					a(href=`/`)
+						| Home
+			block content
+				form(action='/login', method='POST' class="loginRegister") 
+					| Enter your email
+					input(name='email', value='', type='email')
+					| Enter your password
+					input(name='password', value='', type='password')
+					a(href='/register-page' class= "toRegister")
+						| Register
+					input(value='Submit', type='submit')
+					

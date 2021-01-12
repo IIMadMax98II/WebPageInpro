@@ -8,8 +8,10 @@ html
 		main
 			block header
 				header.header
+					img(src='images/logoResize.png' alt="Game Logo" class="center")
 					h1 #{title}
 			block nav
-				a(href=`/`)
-					| Home
+				nav.nav
+					a(href=`/`)
+						| Home
 			block content

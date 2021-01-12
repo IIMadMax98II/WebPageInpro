@@ -8,12 +8,47 @@ html
     main
       block header
         header.header
-          h1 #{title}
+          img(src='images/logoResize.png' alt="Game Logo" class="center")
+          h1 #{title} #{ currentUser }
       block nav
-        a(href=`/config`)
-          | Config
-        a(href=`/login`)
-          | Login
-        a(href=`/social`)
-          | Social
+        nav.nav
+          if currentUser
+            a(href=`/settings`)
+              | Settings
+            a(href=`/social`)
+              | Social
+          if !currentUser
+            a(href=`/login-page`)
+              | Login
+          a(href='/glossary')
+            | Glossary
+
       block content
+        ul
+          li 
+            | new patch released, 
+            a(href='/news')
+              | version 1.2 now available!!!
+          li 
+            | new patch released, 
+            a(href='/news')
+              | version 1.1 now available!!!
+          li 
+            | new patch released, 
+            a(href='/news')
+              | version 1.0 now available!!!
+
+        section(class = "left")
+          img(src='images/omanojaku1.png' alt="omanojaku art")
+          p
+            | "Inside this insidious world, players will find themselves surrounded by various hostile creatures that will try to take your soul. Each of them will have unique behaviors and specifications, make sure to pay a visit to our glossary to prepare yourself better for future encounters."
+        section(class = "right")
+          p
+            | "In order to survive players will need to familiarize themselves with the character classes available that will grant them unique abilities. These abilities will enhance their chances of survival, as well as allow them to solve perplex scenarios and overcome all challenge presented to them."
+          img(src='images/player01.png' alt= "playerModel art")
+
+        section(class = "left")
+          img(src='images/building2.png' alt= "omanojaku art")
+          p
+            | "Not much about this world is known, only that it serves as a passage between the world of the living and the undead. Like some kind of limbo or a wicked version of  purgatory. Lost souls will wonder around with other unhuman creatures who are attracted by the activity and their unsatiable hunger. Make sure to check our glossary to know more about the lure of the game and the world around you."
+          

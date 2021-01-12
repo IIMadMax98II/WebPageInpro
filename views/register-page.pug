@@ -1,0 +1,50 @@
+doctype html
+html
+	head
+		title #{title}
+		link(rel='stylesheet', href='/css/style.css')
+		meta(name="viewport" content="width=device-width, initial-scale=1")
+	body
+		main
+			block header
+				header.header
+					img(src='images/logoResize.png' alt="Game Logo" class="center")
+					h1 #{title}
+			block nav
+				nav.nav
+					a(href=`/`)
+						| Home
+			block content
+				form(action='/register', method='POST' class="loginRegister") 
+						label
+							| Enter your email
+						input(name='email', value='', type='email')
+						label
+							| Name
+						input(name='name', value='Mariano', type='text')
+						label
+							| Username
+						input(name='username', value='Max', type='text')
+						label
+							| Date of Birth
+						input(name='dateOfBirth', value='2000-12-12', type='text')
+						label
+							| Region
+						input(name='region', value='LE', type='text')
+						label
+							| Country
+						input(name='country', value='Luxembourg', type='text')
+						label
+							| Locality
+						input(name='locality', value='Luxembourg', type='text')
+						label
+							| Post Code
+						input(name='postCode', value='5238', type='text')
+						label
+							| Street
+						input(name='street', value='Sandweiler', type='text')
+						label
+							| Enter your password
+						input(name='password', value='', type='password')
+						br
+						input(value='Submit', type='submit' class="button")
