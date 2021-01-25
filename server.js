@@ -178,6 +178,7 @@ app.post('/register',async (req, res)=>{
 })
 
 
-app.listen( 3000, ()=>{
-  console.log( 'Connected')
-})
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, function () {
+  console.info('Rest server listening on port ' + PORT );
+});
