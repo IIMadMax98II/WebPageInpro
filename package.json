@@ -16,9 +16,9 @@
     "mongoose": "^5.10.16",
     "node-fetch": "^2.6.1",
     "notenv": "^2.0.3",
-    "pug": "^3.0.0"
+    "pug": "^3.0.0",
+    "nodemon": "^2.0.6"
   },
   "devDependencies": {
-    "nodemon": "^2.0.6"
   }
 }
