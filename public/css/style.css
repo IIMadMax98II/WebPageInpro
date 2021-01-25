@@ -344,6 +344,11 @@ p
 		grid-gap: 16px;
 	}
 	
+	.news li
+	{
+		font-size: large;
+	}
+
 	label 
 	{
 		font-size: large;
@@ -393,6 +398,11 @@ p
 
 @media only screen and (min-width: 920px) 
 {
+	.news li
+	{
+		font-size: xx-large;
+	}
+
 	.left img
 	{
 		width:30rem;
