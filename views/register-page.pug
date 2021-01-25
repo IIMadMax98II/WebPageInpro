@@ -11,6 +11,9 @@ html
 					img(src='images/logoResize.png' alt="Game Logo" class="center")
 					h1 #{title}
 			block nav
+				if isLoggedIn
+						a(href=`/settings`)
+							| #{username}
 				nav.nav
 					a(href=`/`)
 						| Home

@@ -12,6 +12,23 @@ html
 					h1 #{title}
 			block nav
 				nav.nav
+					if isLoggedIn
+						a(href= '/settings')
+							| #{username}
 					a(href=`/`)
 						| Home
 			block content
+				section(class = "social")
+					div(class = "image")
+						img(src='images/oni.png' alt="ONI art")
+					div(class = "socialContent")
+						h2 #{"Player Stats"}
+						ul
+							li 
+								| Found Object: #{playerStats.foundObject} 
+							li 
+								| Total Play Time: #{playerStats.totalPlayTimeInMins} 
+							li 
+								| Total Games Played: #{playerStats.totalGames}
+							li 
+								| Riddles Solved: #{playerStats.riddleSolved} 

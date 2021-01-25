@@ -3,6 +3,7 @@ html
 	head
 		title #{title}
 		link(rel='stylesheet', href='/css/style.css')
+		script(src= '/scripts/script.js')
 		meta(name="viewport" content="width=device-width, initial-scale=1")
 	body
 		main
@@ -12,6 +13,14 @@ html
 					h1 #{title}
 			block nav
 				nav.nav
+					if isLoggedIn
+						a(href=`/settings`)
+							| #{username}
 					a(href=`/`)
 						| Home
 			block content
+				button(type="button" class="collapsible")
+					| Open Collapsible
+				div(class="content")
+					p
+						|Here you would have information about the player

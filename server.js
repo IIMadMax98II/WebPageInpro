@@ -1,11 +1,18 @@
 const express = require("express");
 const app = express();
-const fetch = require('node-fetch')
+const {getPlayerStats} = require('./controllers/webController'); 
+const { getAuthState, refreshToken, login, register, logout } = require('./controllers/authController');
+// const webController = require('./controllers/webController'); 
+// const getPlayerStats = webController.getPlayerStats
 
-const ApiAddress = 'http://localhost:3333'
-// const ApiAddress = 'http://192.168.128.91:3333'
+//const ApiAddress = 'http://localhost:3333'
+const ApiAddress = 'http://triaedapi.btshub.lu'
 
-let currentUser = null
+//With this we can convert our bodies to params
+const url = require('url');
+const URLSearchParams = url.URLSearchParams
+
+
 
 app.set('view engine', 'pug');
 app.use(express.static(__dirname + '/public'))
@@ -15,98 +22,162 @@ app.use(express.urlencoded({
   extended: true
 }))
 
-app.get('/', (req, res)=>{
+
+let playerStats;
+
+app.get('/', async (req, res)=>{
+  if (getAuthState().isLoggedIn)
+  {
+    await refreshToken(ApiAddress)
+  }
+
   res.render('home',{
     title: 'Homepage',
-    currentUser: currentUser
+    isLoggedIn: getAuthState().isLoggedIn,
+    username: getAuthState().username
   })
 })
 
 app.get('/login-page', (req, res)=>{
+  
   res.render('login-page',{
     title: 'Login Page',
-    currentUser: 'currentUser'
+    isLoggedIn: getAuthState().isLoggedIn,
+    username: getAuthState().username
   })
 })
 
-app.post('/login',(req, res)=>{
-  console.log('-------pase por aqui', req.body)
+app.post('/login',async (req, res)=>{
+ 
+  const answer = await login(ApiAddress,req.body)
 
-  fetch( ApiAddress + '/login/m', {
-    method: 'POST',
-    body: res.body
-  }).then( data =>{
-    data.json().then( answerBody => {
-      console.log( answerBody )
-      if( !answerBody.ok ) {
-        //currentUser = 'Testing User'
-        res.render('auth-error', {
-          title: 'Login Error',
-          reason: answerBody.message
-        })
-      }
-      else {
-        currentUser = answerBody.email
-        res.render('home')
-      }
+  if( !getAuthState().isLoggedIn) {
+    
+    res.render('auth-error', {
+      title: 'Login Error',
+      reason: answer.error,
+      isLoggedIn: getAuthState().isLoggedIn,
+      username: getAuthState().username
     })
+  }
+  else {
+
+    res.render('home', {
+      title: 'Homepage',
+      isLoggedIn: getAuthState().isLoggedIn,
+      username: getAuthState().username
+    })
+   
+  }
+})
+
+app.post('/logout',async (req,res)=>{
+  
+  const answer = await logout(ApiAddress)
+  console.log('--------------->',answer)
+
+  if( answer.ok) {
+    
+    res.render('home', {
+      title: 'Homepage',
+      isLoggedIn: getAuthState().isLoggedIn,
+      username: getAuthState().username
+    })
+  }
+})
+
+app.get('/glossary-page',async (req,res)=>{
+  
+  if (getAuthState().isLoggedIn)
+  {
+    await refreshToken(ApiAddress)
+  }
+  
+  res.render('glossary-page',{
+    title: 'Glossary',
+    isLoggedIn: getAuthState().isLoggedIn,
+    username: getAuthState().username
   })
 })
 
-app.get('/glossary',(req,res)=>{
-  app.render('glossary',{
-    title: 'Glossary'
-  })
-})
-
-app.get('/settings',(req,res)=>{
+app.get('/settings',async (req,res)=>{
+  
+  if (getAuthState().isLoggedIn)
+  {
+    await refreshToken(ApiAddress)
+  }
+  
   res.render('settings',{
     title: 'Settings Page',
-    currentUser: currentUser  })
-})
-
-app.get('/social',(req,res)=>{
-  res.render('social',{
-    title: 'Social/Stats Page',
-    currentUser: currentUser
+    isLoggedIn: getAuthState().isLoggedIn,
+    player:getAuthState().player
   })
 })
 
-app.get('/news',(req,res)=>{
+app.get('/social',async (req,res)=>{
+  
+  if (getAuthState().isLoggedIn)
+  {
+    await refreshToken(ApiAddress)
+    playerStats = await getPlayerStats( ApiAddress)
+  }
+  
+
+  res.render('social',{
+    title: 'Social/Stats Page',
+    isLoggedIn: getAuthState().isLoggedIn,
+    username: getAuthState().username,
+    playerStats: playerStats
+  })
+})
+
+app.get('/news',async (req,res)=>{
+  
+  if (getAuthState().isLoggedIn)
+  {
+    await refreshToken(ApiAddress)
+  }
+  
   res.render('news',{
-    title: 'News Page'
+    title: 'News Page',
+    isLoggedIn: getAuthState().isLoggedIn,
+    username: getAuthState().username
   })
 })
 
 app.get('/register-page',(req,res)=>{
+  
   res.render('register-page',{
-    title: 'Registration Page'
+    title: 'Registration Page',
+    isLoggedIn: getAuthState().isLoggedIn,
+    username: getAuthState().username
   })
 })
 
-app.post('/register',(req, res)=>{
-  console.log('Registering User', req.body)
+app.post('/register',async (req, res)=>{
 
-  fetch( ApiAddress + '/register', {
-    method: 'POST',
-    body: res.body
-  }).then( data =>{
-    data.json().then( answerBody => {
-      console.log( answerBody )
-      if( !answerBody.ok ) {
-        res.render('auth-error', {
-          title: 'Login Error',
-          reason: answerBody.errors
-        })
-      }
-      else {
-        currentUser = answerBody.email
-        res.render('home')
-      }
+  answerBody = await register(ApiAddress, req.body)
+      
+  if( !answerBody.ok ) {
+    res.render('auth-error', {
+      title: 'Login Error',
+      reason: answerBody.error
     })
-  })
+  }
+  else {
+
+    await login(ApiAddress,req.body)
+      
+    res.render('home',{
+      title: 'Homepage',
+      isLoggedIn: getAuthState().isLoggedIn,
+      username: getAuthState().username
+    })
+    
+  }
 })
+
 
 app.listen( 3000, ()=>{
-  console.log( 'Connect2')
+  console.log( 'Connected')
 })

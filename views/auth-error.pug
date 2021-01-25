@@ -12,8 +12,12 @@ html
 					h1 #{title}
 			block nav
 				nav.nav
+					if isLoggedIn
+						a(href=`/settings`)
+							| #{username}
 					a(href=`/`)
 						| Home
 			block content
-				h3(class = "errorMessage") #{ reason }
+				section(class = "errorMessage") 
+					h3 #{ reason }
 					

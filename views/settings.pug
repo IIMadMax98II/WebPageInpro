@@ -15,3 +15,6 @@ html
 					a(href=`/`)
 						| Home
 			block content
+				form(action = '/logout', method = 'POST', class = 'left')
+					button(value = 'Submit', type = 'submit', class = 'button')
+						| Logout
