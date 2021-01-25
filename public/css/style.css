@@ -192,7 +192,7 @@ p
 	display: grid;
 	grid-template-columns: repeat(2, 1fr);
 	grid-template-rows: 1fr;
-	grid-column-gap: 10rem;
+	grid-column-gap: 0rem;
 	grid-row-gap: 0px;
 	align-items: center;
 }
@@ -366,6 +366,11 @@ p
 		width:15rem;
 	}
 	
+	.social
+	{
+		grid-column-gap: 8rem;
+	}
+
 	.left img
 	{
 		width:15rem;
@@ -375,10 +380,9 @@ p
 	{
 		font-size: large;
 	}
-
-	.right img
+	.social
 	{
-		width:15rem;
+		grid-column-gap: 3rem;
 	}
 }
 
@@ -415,4 +419,8 @@ p
 		width:35rem;
 	}
 	
+	.social
+	{
+		grid-column-gap: 10rem;
+	}
 }
