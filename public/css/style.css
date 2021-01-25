@@ -289,6 +289,11 @@ p
 		grid-gap: 16px;
 	}
 
+	.news li
+	{
+		font-size: x-small;
+	}
+
 	.social h2
 	{
 		font-size: xx-small;
