@@ -282,6 +282,11 @@ p
 
 @media only screen and (max-width: 768px) 
 {
+	nav a
+	{
+		font-size:small;
+	}
+
 	.loginRegister 
 	{
 		grid-template-columns: 100px 1fr;
@@ -338,6 +343,11 @@ p
 
 @media only screen and (min-width: 768px) 
 {
+	nav a
+	{
+		font-size:large;
+	}
+
 	.loginRegister 
 	{
 		grid-template-columns: 250px 1fr;
@@ -398,9 +408,14 @@ p
 
 @media only screen and (min-width: 920px) 
 {
+	nav a
+	{
+		font-size:x-large;
+	}
+
 	.news li
 	{
-		font-size: xx-large;
+		font-size: x-large;
 	}
 
 	.left img
