@@ -25,10 +25,10 @@ html
 						h2 #{"Player Stats"}
 						ul
 							li 
-								| Found Object: #{playerStats.foundObject} 
+								| Found Object: #{playerStats? playerStats.foundObject : ""} 
 							li 
-								| Total Play Time: #{playerStats.totalPlayTimeInMins} 
+								| Total Play Time: #{playerStats? playerStats.totalPlayTimeInMins : ""} 
 							li 
-								| Total Games Played: #{playerStats.totalGames}
+								| Total Games Played: #{playerStats? playerStats.totalGames  : ""}
 							li 
-								| Riddles Solved: #{playerStats.riddleSolved} 
+								| Riddles Solved: #{playerStats? playerStats.riddleSolved : ""} 

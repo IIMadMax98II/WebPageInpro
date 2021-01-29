@@ -74,7 +74,6 @@ app.post('/login',async (req, res)=>{
 app.post('/logout',async (req,res)=>{
   
   const answer = await logout(ApiAddress)
-  console.log('--------------->',answer)
 
   if( answer.ok) {
     

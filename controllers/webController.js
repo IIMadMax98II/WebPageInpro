@@ -11,10 +11,9 @@ async function getPlayerStats( apiAddress )
       'Authorization': getAuthState().token 
     }
   })
-
   
   const temp = await data.json()
-  playerStats = temp.player_stat
+  playerStats = temp
   
   return playerStats
 }
